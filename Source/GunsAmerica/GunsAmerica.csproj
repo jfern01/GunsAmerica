@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Build">
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Package">
+    <Product>GunsAmerica</Product>
+    <Description>GunsAmerica API client for .NET</Description>
+    <PackageTags>gunsamerica</PackageTags>
+    <Authors>Jose Fernandez</Authors>
+    <Company>Fernandez Systems</Company>
+    <Copyright>Copyright © Jose Fernandez. All rights Reserved</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RestSharp" Version="107.3.0" />
+  </ItemGroup>
+
+</Project>
