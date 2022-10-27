@@ -14,7 +14,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RestSharp" Version="107.3.0" />
+    <PackageReference Include="RestSharp" Version="108.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.VisualStudio.Threading.Analyzers" Version="17.3.48" />
+    <PackageReference Update="MinVer" Version="4.2.0" />
   </ItemGroup>
 
 </Project>

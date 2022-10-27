@@ -29,21 +29,37 @@ public class Authenticator : AuthenticatorBase
         this.clientSecret = clientSecret ?? throw new ArgumentNullException(nameof(clientSecret));
     }
 
+    /// <summary>
+    /// Gets a value indicating whether the authenticator has a valid token.
+    /// </summary>
+    public bool ValidToken => !string.IsNullOrEmpty(this.Token) && DateTimeOffset.Now < this.TokenExpiration;
+
+    /// <summary>
+    /// Gets token expiration datetime.
+    /// </summary>
+    public DateTimeOffset TokenExpiration { get; private set; } = DateTimeOffset.MinValue;
+
     /// <inheritdoc/>
     protected override async ValueTask<Parameter> GetAuthenticationParameter(string accessToken)
     {
-        var token = string.IsNullOrEmpty(this.Token) ? await this.GetTokenAsync().ConfigureAwait(false) : this.Token;
+        if (!this.ValidToken)
+        {
+            await this.GetTokenAsync().ConfigureAwait(false);
+        }
 
-        return new HeaderParameter(KnownHeaders.Authorization, token);
+        return new HeaderParameter(KnownHeaders.Authorization, this.Token);
     }
 
     /// <summary>
     /// Request access token from the OAuth2 endpoint.
     /// </summary>
     /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
-    protected async Task<string> GetTokenAsync()
+    protected async Task GetTokenAsync()
     {
-        var options = new RestClientOptions(BaseUrl);
+        var options = new RestClientOptions(BaseUrl)
+        {
+            ThrowOnAnyError = true,
+        };
 
         using var client = new RestClient(options)
         {
@@ -58,6 +74,7 @@ public class Authenticator : AuthenticatorBase
 
         var response = await client.PostAsync<Models.TokenResponse>(request).ConfigureAwait(false);
 
-        return $"{response!.TokenType} {response!.AccessToken}";
+        this.TokenExpiration = DateTimeOffset.Now.AddSeconds(response!.ExpiresIn);
+        this.Token = $"{response!.TokenType} {response!.AccessToken}";
     }
 }
