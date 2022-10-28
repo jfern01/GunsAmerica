@@ -5,8 +5,14 @@ using System.Text.Json.Serialization;
 /// <summary>
 /// Guns America item.
 /// </summary>
-public record class Item
+public abstract record class Item
 {
+    /// <summary>
+    /// Gets Buy Now price.
+    /// </summary>
+    [JsonPropertyName("BuyNowPrice")]
+    public decimal? BuyNowPrice { get; init; }
+
     /// <summary>
     /// Gets Category ID.
     /// </summary>
@@ -26,12 +32,6 @@ public record class Item
     public string Description { get; init; } = default!;
 
     /// <summary>
-    /// Gets Buy Now price.
-    /// </summary>
-    [JsonPropertyName("BuyNowPrice")]
-    public decimal BuyNowPrice { get; init; }
-
-    /// <summary>
     /// Gets Fixed price.
     /// </summary>
     [JsonPropertyName("FixedPrice")]
@@ -47,7 +47,7 @@ public record class Item
     /// Gets Item MPN.
     /// </summary>
     [JsonPropertyName("MfgPartNumber")]
-    public string Mpn { get; init; } = default!;
+    public string? Mpn { get; init; }
 
     /// <summary>
     /// Gets Item quantity.
@@ -59,10 +59,10 @@ public record class Item
     /// Gets Reserve price.
     /// </summary>
     [JsonPropertyName("ReserverPrice")]
-    public decimal ReservePrice { get; init; }
+    public decimal? ReserverPrice { get; init; }
 
     /// <summary>
-    /// Gets Item serial number.
+    /// Gets Item seller stock number.
     /// </summary>
     [JsonPropertyName("SerialNumber")]
     public string SerialNumber { get; init; } = default!;
@@ -95,7 +95,7 @@ public record class Item
     /// Gets Item UPC.
     /// </summary>
     [JsonPropertyName("UPC")]
-    public string UPC { get; init; } = default!;
+    public string? Upc { get; init; }
 
     /// <summary>
     /// Gets Item weight.

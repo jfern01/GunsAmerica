@@ -1,4 +1,4 @@
-namespace GunsAmerica.Models;
+namespace GunsAmerica.Models.Responses;
 
 using System.Text.Json.Serialization;
 

@@ -1,5 +1,6 @@
 namespace GunsAmerica;
 
+using GunsAmerica.Models.Responses;
 using RestSharp;
 using RestSharp.Authenticators;
 
@@ -72,7 +73,7 @@ public class Authenticator : AuthenticatorBase
             .AddParameter("client_id", this.clientId)
             .AddParameter("client_secret", this.clientSecret);
 
-        var response = await client.PostAsync<Models.TokenResponse>(request).ConfigureAwait(false);
+        var response = await client.PostAsync<TokenResponse>(request).ConfigureAwait(false);
 
         this.TokenExpiration = DateTimeOffset.Now.AddSeconds(response!.ExpiresIn);
         this.Token = $"{response!.TokenType} {response!.AccessToken}";

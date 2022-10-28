@@ -1,4 +1,4 @@
-namespace GunsAmerica.Models;
+namespace GunsAmerica.Models.Responses;
 
 using System.Text.Json.Serialization;
 
@@ -35,11 +35,11 @@ public record class ItemResponse : Item
     /// Gets Listing end date.
     /// </summary>
     [JsonPropertyName("ListingEndDate")]
-    public DateTime ListingEndDate { get; init; }
+    public DateTime? ListingEndDate { get; init; }
 
     /// <summary>
     /// Gets Listing type.
     /// </summary>
     [JsonPropertyName("ListingType")]
-    public string ListingType { get; init; } = ListingTypes.StoreAd;
+    public string ListingType { get; init; } = default!;
 }

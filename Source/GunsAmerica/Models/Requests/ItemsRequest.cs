@@ -1,4 +1,4 @@
-namespace GunsAmerica.Models;
+namespace GunsAmerica.Models.Requests;
 
 using System.Globalization;
 using RestSharp;
@@ -67,9 +67,8 @@ public class ItemsRequest
     /// Get collected values.
     /// </summary>
     /// <returns>Dicionary of key/values.</returns>
-    public IDictionary<string, string?> GetValues()
-    {
-        var values = new Dictionary<string, string?>(9)
+    public IDictionary<string, string?> GetValues() =>
+        new Dictionary<string, string?>(9)
         {
             { "Categories", this.Categories },
             { "Keywords", this.Keywords },
@@ -82,9 +81,6 @@ public class ItemsRequest
             { "UPC", this.Upc },
             { "Sort", this.Sort.HasValue ? ((int)this.Sort).ToString(CultureInfo.InvariantCulture) : null },
         };
-
-        return values;
-    }
 
     /// <summary>
     /// Get request parameters.
