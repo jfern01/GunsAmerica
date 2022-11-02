@@ -3,6 +3,7 @@ namespace GunsAmerica;
 using GunsAmerica.Models.Requests;
 using GunsAmerica.Models.Responses;
 using RestSharp;
+using RestSharp.Serializers.Json;
 
 /// <summary>
 /// The API client.
@@ -40,7 +41,7 @@ public class Client : IDisposable
             Authenticator = new Authenticator(this.clientId, this.clientKey),
         };
 
-        _ = this.client.UseOnlySerializer(() => new JsonSerializer());
+        _ = this.client.UseSystemTextJson();
     }
 
     /// <inheritdoc/>

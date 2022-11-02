@@ -27,8 +27,14 @@ public record class CollectionResponse<T>
     public int PageSize { get; init; }
 
     /// <summary>
-    /// Gets results.
+    /// Gets wrapped results.
     /// </summary>
     [JsonPropertyName("Results")]
-    public List<T> Results { get; init; } = new();
+    public List<List<T>> WrappedResults { get; init; } = new() { new() };
+
+    /// <summary>
+    /// Gets results.
+    /// </summary>
+    [JsonIgnore]
+    public List<T> Results => this.WrappedResults.FirstOrDefault() ?? new();
 }
